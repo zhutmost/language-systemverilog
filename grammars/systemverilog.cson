@@ -1,0 +1,595 @@
+scopeName: 'source.systemverilog'
+name: 'SystemVerilog'
+fileTypes: ['v', 'sv', 'vh', 'svh']
+
+patterns: [
+  {
+    include: '#comments'
+  }
+  {
+    include: '#strings'
+  }
+  {
+    include: '#module_blocks'
+  }
+  {
+    include: '#package_blocks'
+  }
+  {
+    include: '#interface_blocks'
+  }
+  {
+    include: '#config_blocks'
+  }
+  {
+    include: '#udp_blocks'
+  }
+  {
+    include: '#extern_declarations'
+  }
+]
+repository:
+  comments:
+    patterns: [
+      {
+        begin: '/\\*'
+        beginCaptures:
+          '0':
+            name: 'punctuation.definition.comment.begin.systemverilog'
+        end: '\\*/'
+        endCaptures:
+          '0':
+            name: 'punctuation.definition.comment.end.systemverilog'
+        name: 'comment.block.systemverilog'
+      }
+      {
+        match: '\\*/'
+        name: 'invalid.illegal.stray-end.comment.systemverilog'
+      }
+      {
+        match: '(//)(.*)$'
+        captures:
+          '1':
+            name: 'punctuation.definition.comment.systemverilog'
+          '2':
+            name: 'comment.line.double-slash.systemverilog'
+      }
+    ]
+  strings:
+    patterns: [
+      {
+        begin: '"'
+        beginCaptures:
+          '0':
+            name: 'punctuation.definition.string.begin.systemverilog'
+        end: '"'
+        endCaptures:
+          '0':
+            name: 'punctuation.definition.string.end.systemverilog'
+        name: 'string.quoted.double.systemverilog'
+        patterns: [
+          {
+            match: '(\\\\\\\\)*(\\\\.)(?=\\n)'
+            captures:
+              '1':
+                name: 'constant.character.escape.systemverilog'
+              '2':
+                name: 'invalid.illegal.non-quote-end.string.systemverilog'
+          }
+          {
+            match: '([^\\\\])(?=\\n)'
+            captures:
+              '1':
+                name: 'invalid.illegal.non-quote-end.string.systemverilog'
+          }
+          {
+            match: '''(?x)(\\\\ (
+                \\\\             |
+                [afntv"]         |
+                [0-3]\\d{,2}     |
+                x[a-fA-F0-9]{,2} )|%%)(?!\\n)
+            '''
+            name: 'constant.character.escape.systemverilog'
+          }
+          {
+            match: '%(\\d+)?[bBcCdDeEfFgGhHlLmMoOpPsStTuUvVxXzZ](?!\\n)'
+            name: 'constant.other.placeholder.systemverilog'
+          }
+          {
+            match: '(%)(?!(\\d+)?[bBcCdDeEfFgGhHlLmMoOpPsStTuUvVxXzZ])'
+            captures:
+              '1':
+                name: 'invalid.illegal.placeholder.systemverilogc'
+          }
+          {
+            match: '(\\\\)\\n'
+            captures:
+              '1':
+                name: 'constant.character.escape.line-continuation.systemverilog'
+          }
+          {
+            match: '\\\\.?'
+            name: 'invalid.illegal.unknown-escape.systemverilog'
+          }
+        ]
+      }
+    ]
+  numbers:
+    patterns: [
+      {
+        match: '\\b[0-9][_0-9]*(\\.[0-9][_0-9]*)?[eE][+\\-]?[0-9][_0-9]*\\b'
+        name: 'constant.numeric.real.float.systemverilog'
+      }
+      {
+        match: '\\b[0-9][_0-9]*(\\.[0-9][_0-9]*)?(s|ms|us|ns|ps|fs)\\b'
+        name: 'constant.numeric.time.systemverilog'
+      }
+      {
+        match: '\\b1step\\b'
+        name: 'constant.numeric.time.step.systemverilog'
+      }
+      {
+        match: '(\\b[1-9][_0-9]*)?\\s*\'[sS]?[bB]\\s*[01xXzZ?][_01xXzZ?]*'
+        name: 'constant.numeric.binary.integer.systemverilog'
+      }
+      {
+        match: '(\\b[1-9][_0-9]*)?\\s*\'[sS]?[oO]\\s*[0-7xXzZ?][_0-7xXzZ?]*'
+        name: 'constant.numeric.octal.integer.systemverilog'
+      }
+      {
+        match: '(\\b[1-9][_0-9]*)?\\s*\'[sS]?[hH]\\s*[0-9a-fA-FxXzZ?][_0-9a-fA-FxXzZ?]*'
+        name: 'constant.numeric.hex.integer.systemverilog'
+      }
+      {
+        match: '(\\b[1-9][_0-9]*)?\\s*\'[sS]?[dD]\\s*([xX]+|[zZ]+|[0-9][_0-9]*)'
+        name: 'constant.numeric.decimal.integer.based.systemverilog'
+      }
+      {
+        match: '\\b[0-9][_0-9]*\\.[0-9][_0-9]*\\b'
+        name: 'constant.numeric.real.fixed.systemverilog'
+      }
+      {
+        match: '\\b[0-9][_0-9]*\\b'
+        name: 'constant.numeric.decimal.integer.unbased.systemverilog'
+      }
+      {
+        match: '\'[zZxX01]\\b'
+        name: 'constant.numeric.unbased.unsized.systemverilog'
+      }
+    ]
+  package_blocks:
+    patterns: [
+      {
+        begin: '\\b(package)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.package.begin.systemverilog'
+        end: '\\b(endpackage)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.package.end.systemverilog'
+        name: 'meta.block.package.systemverilog'
+        patterns: [
+          {
+            match: '(?<=package)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'storage.modifier.lifetime.systemverilog'
+              '2':
+                name: 'entity.name.type.package.systemverilog'
+          }
+          {
+            match: '\\b(module|interface|package)\\b'
+            name: 'invalid.illegal.nested.systemverilog'
+          }
+        ]
+      }
+      {
+        match: '(?<=endpackage)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.package.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  interface_blocks:
+    patterns: [
+      {
+        begin: '\\b(interface)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.interface.begin.systemverilog'
+        end: '\\b(endinterface)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.interface.end.systemverilog'
+        name: 'meta.block.interface.systemverilog'
+        patterns: [
+          {
+            match: '(?<=interface)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'storage.modifier.lifetime.systemverilog'
+              '2':
+                name: 'entity.name.type.interface.systemverilog'
+          }
+          # TODO: interface
+        ]
+      }
+      {
+        match: '(?<=endinterface)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.interface.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  module_blocks:
+    patterns: [
+      {
+        begin: '\\b(macromodule|module)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.module.begin.systemverilog'
+        end: '\\b(endmodule)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.module.end.systemverilog'
+        name: 'meta.block.module.systemverilog'
+        patterns: [
+          {
+            match: '(?<=module)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'storage.modifier.lifetime.systemverilog'
+              '2':
+                name: 'entity.name.type.module.systemverilog'
+          }
+          # TODO: module
+        ]
+      }
+      {
+        match: '(?<=endmodule)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.module.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  program_blocks:
+    patterns: [
+      {
+        begin: '\\b(program)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.program.begin.systemverilog'
+        end: '\\b(endprogram)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.program.end.systemverilog'
+        name: 'meta.block.program.systemverilog'
+        patterns: [
+          {
+            match: '(?<=program)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'storage.modifier.lifetime.systemverilog'
+              '2':
+                name: 'entity.name.type.program.systemverilog'
+          }
+          # TODO: program
+        ]
+      }
+      {
+        match: '(?<=endprogram)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.program.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  config_blocks:
+    patterns: [
+      {
+        begin: '\\b(config)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.config.begin.systemverilog'
+        end: '\\b(endconfig)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.config.end.systemverilog'
+        name: 'meta.block.config.systemverilog'
+        patterns: [
+          {
+            match: '(?<=config)\\s+([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'entity.name.type.config.systemverilog'
+          }
+          {
+            include: '#comments'
+          }
+          {
+            match: '\\bconfig\\b'
+            name: 'keyword.other.use-config.systemverilog'
+          }
+          {
+            include: '#keywords'
+          }
+          {
+            include: '#numbers'
+          }
+          # TODO: library
+        ]
+      }
+      {
+        match: '(?<=endconfig)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.config.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  checker_blocks:
+    patterns: [
+      {
+        begin: '\\b(checker)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.checker.begin.systemverilog'
+        end: '\\b(endchecker)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.checker.end.systemverilog'
+        name: 'meta.block.checker.systemverilog'
+        patterns: [
+          {
+            include: '#comments'
+          }
+          {
+            include: '#checker_blocks'
+          }
+          {
+            match: '\\b(module|interface|package|program)\\b'
+            name: 'invalid.illegal.nested.systemverilog'
+          }
+          # TODO: checker
+        ]
+      }
+      {
+        match: '(?<=endchecker)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.config.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  udp_blocks:
+    patterns: [
+      {
+        begin: '\\b(primitive)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.udp.begin.systemverilog'
+        end: '\\b(endprimitive)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.udp.end.systemverilog'
+        name: 'meta.block.udp.systemverilog'
+        patterns: [
+          {
+            match: '(?<=primitive)\\s+([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+            captures:
+              '1':
+                name: 'entity.name.type.udp.systemverilog'
+          }
+          {
+            include: '#comments'
+          }
+          {
+            include: '#numbers'
+          }
+          {
+            include: '#table_blocks'
+          }
+          {
+            include: '#keywords'
+          }
+        ]
+      }
+      {
+        match: '(?<=endprimitive)(?:\\s*(:)\\s*([\\\\a-zA-Z_][a-zA-Z0-9_$]*))?\\s*(.*?)(?=\\s*(//|$))'
+        captures:
+          '1':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '2':
+            name: 'entity.name.type.udp.systemverilog'
+          '3':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+    ]
+  extern_declarations:
+    patterns: [
+      {
+        begin: '\\b(extern)\\b'
+        beginCaptures:
+          '1':
+            name: 'keyword.other.extern.systemverilog'
+        end: '\\b(program|module|interface|primitive)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.extern.systemverilog'
+        name: 'meta.attribute.extern.systemverilog'
+        patterns: [
+          {
+            include: '#comments'
+          }
+          {
+            include: '#attribute'
+          }
+        ]
+      }
+      {
+        match: '(?<=program)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+        captures:
+          '1':
+            name: 'storage.modifier.lifetime.systemverilog'
+          '2':
+            name: 'entity.name.type.program.systemverilog'
+      }
+      {
+        match: '(?<=module)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+        captures:
+          '1':
+            name: 'storage.modifier.lifetime.systemverilog'
+          '2':
+            name: 'entity.name.type.module.systemverilog'
+      }
+      {
+        match: '(?<=interface)\\s+(?:(automatic|static)\\s+)?([\\\\a-zA-Z_][a-zA-Z0-9_$]*)'
+        captures:
+          '1':
+            name: 'storage.modifier.lifetime.systemverilog'
+          '2':
+            name: 'entity.name.type.interface.systemverilog'
+      }
+      # TODO: primitive
+    ]
+  keywords:
+    patterns: [
+      {
+        match: '\\b(accept_on|alias|assert|assign|assume)\\b'
+        name: 'keyword.other.a.systemverilog'
+      }
+      {
+        match: '\\b(before|bind|bins|binsof|break)\\b'
+        name: 'keyword.other.b.systemverilog'
+      }
+      {
+        match: '\\b(cell|chandle|constraint|context|continue|cover|covergroup|coverpoint|cross)\\b'
+        name: 'keyword.other.c.systemverilog'
+      }
+      {
+        match: '\\b(deassign|default|defparam|design|disable|dist|do)\\b'
+        name: 'keyword.other.d.systemverilog'
+      }
+      {
+        match: '\\b(edge|else|enum|event|eventually|expect|extends)\\b'
+        name: 'keyword.other.e.systemverilog'
+      }
+      {
+        match: '\\b(final|first_match|for|force|foreach|forever)\\b'
+        name: 'keyword.other.f.systemverilog'
+      }
+      {
+        match: '\\b(genvar|global)\\b'
+        name: 'keyword.other.g.systemverilog'
+      }
+      {
+        match: '\\b(if|iff|ifnone|ignore_bins|illegal_bins|implies|initial|input|inout|instance|interconnect|intersect)\\b'
+        name: 'keyword.other.i.systemverilog'
+      }
+      {
+        match: '\\b(let|liblist|library|local|localparam)\\b'
+        name: 'keyword.other.l.systemverilog'
+      }
+      {
+        match: '\\b(matches|modport)\\b'
+        name: 'keyword.other.m.systemverilog'
+      }
+      {
+        match: '\\b(negedge|nettype|new|nexttime|noshowcancelled)\\b'
+        name: 'keyword.other.n.systemverilog'
+      }
+      {
+        match: '\\b(output)\\b'
+        name: 'keyword.other.o.systemverilog'
+      }
+      {
+        match: '\\b(packed|parameter|posedge|priority|protected|pulldown|pullup|pulsestyle_onevent|pulsestyle_ondetect|pure)\\b'
+        name: 'keyword.other.p.systemverilog'
+      }
+      {
+        match: '\\b(rand|randc|randcase|randsequence|realtime|ref|reject_on|release|repeat|restrict|return)\\b'
+        name: 'keyword.other.r.systemverilog'
+      }
+      {
+        match: '\\b(s_always|s_eventually|s_until|s_untilwith|scalared|showcancelled|soft|solve|specparam|struct|super|sync_accept_on|sync_reject_on)\\b'
+        name: 'keyword.other.s.systemverilog'
+      }
+      {
+        match: '\\b(tagged|throughout|timeprecision|timeunit|type)\\b'
+        name: 'keyword.other.t.systemverilog'
+      }
+      {
+        match: '\\b(union|until|until_with|untyped|use)\\b'
+        name: 'keyword.other.u.systemverilog'
+      }
+      {
+        match: '\\b(wait|wait_order|while|wildcard|with|within)\\b'
+        name: 'keyword.other.w.systemverilog'
+      }
+    ]
+  attribute:
+    patterns: [
+      begin: '\\(\\*'
+      beginCaptures: 'punctuation.definition.attribute.begin.systemverilog'
+      end: '\\*\\)'
+      endCaptures: 'punctuation.definition.attribute.end.systemverilog'
+      name: 'meta.attribute.systemverilog' # TODO
+      patterns: [
+        {
+          include: '#comments'
+        }
+      ]
+    ]
+  table_blocks:
+    patterns: [
+      {
+        begin: '\\b(table)\\b'
+        beginCaptures:
+          '1':
+            name: 'storage.type.table.begin.systemverilog'
+        end: '\\b(endtable)\\b'
+        endCaptures:
+          '1':
+            name: 'storage.type.table.end.systemverilog'
+        name: 'meta.block.table.systemverilog'
+        patterns: [
+          {
+            include: '#comments'
+          }
+          {
+            match: '[01xXbB?bBrRfFpPnN*]'
+            name: 'constant.numeric.table-symbol.udp.systemverilog'
+          }
+          {
+            match: '(:)(?:\\s*(:))*'
+            captures:
+              '1':
+                name: 'punctuation.separator.table-symbol.udp.systemverilog'
+              '2':
+                name: 'invalid.illegal.duplicate.udp.systemverilog'
+          }
+        ]
+      }
+    ]

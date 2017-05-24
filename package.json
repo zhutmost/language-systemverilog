@@ -1,0 +1,17 @@
+{
+  "name": "language-systemverilog",
+  "version": "0.0.0",
+  "description": "SystemVerilog language support for Atom",
+  "engines": {
+    "atom": "*"
+  },
+  "license": "MIT",
+  "homepage": "https://atom.github.io/language-systemverilog",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhutmost/language-systemverilog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhutmost/language-systemverilog"
+  }
+}
