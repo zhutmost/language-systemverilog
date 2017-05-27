@@ -1050,147 +1050,147 @@ repository:
   color_test:
     patterns: [
       {
-        match: '\\b(clock_test_constant_numeric)\\b'
+        match: '^\\b(color_test_constant_numeric)\\b'
         name: 'constant.numeric'
       }
       {
-        match: '\\b(clock_test_constant_language)\\b'
+        match: '^\\b(color_test_constant_language)\\b'
         name: 'constant.language'
       }
       {
-        match: '\\b(clock_test_constant_character)\\b'
+        match: '^\\b(color_test_constant_character)\\b'
         name: 'constant.character'
       }
       {
-        match: '\\b(clock_test_constant_character_escape)\\b'
+        match: '^\\b(color_test_constant_character_escape)\\b'
         name: 'constant.character.escape'
       }
       {
-        match: '\\b(clock_test_constant_other)\\b'
+        match: '^\\b(color_test_constant_other)\\b'
         name: 'constant.other'
       }
       {
-        match: '\\b(clock_test_entity_name_function)\\b'
+        match: '^\\b(color_test_entity_name_function)\\b'
         name: 'entity.name.function'
       }
       {
-        match: '\\b(clock_test_entity_name_type)\\b'
+        match: '^\\b(color_test_entity_name_type)\\b'
         name: 'entity.name.type'
       }
       {
-        match: '\\b(clock_test_entity_name_tag)\\b'
+        match: '^\\b(color_test_entity_name_tag)\\b'
         name: 'entity.name.tag'
       }
       {
-        match: '\\b(clock_test_entity_name_section)\\b'
+        match: '^\\b(color_test_entity_name_section)\\b'
         name: 'entity.name.section'
       }
       {
-        match: '\\b(clock_test_entity_other_inherited-class)\\b'
+        match: '^\\b(color_test_entity_other_inherited-class)\\b'
         name: 'entity.other.inherited-class'
       }
       {
-        match: '\\b(clock_test_entity_other_attribute-name)\\b'
+        match: '^\\b(color_test_entity_other_attribute-name)\\b'
         name: 'entity.other.attribute-name'
       }
       {
-        match: '\\b(clock_test_invalid_illegal)\\b'
+        match: '^\\b(color_test_invalid_illegal)\\b'
         name: 'invalid.illegal'
       }
       {
-        match: '\\b(clock_test_invalid_deprecated)\\b'
+        match: '^\\b(color_test_invalid_deprecated)\\b'
         name: 'invalid.deprecated'
       }
       {
-        match: '\\b(clock_test_keyword_control)\\b'
+        match: '^\\b(color_test_keyword_control)\\b'
         name: 'keyword.control'
       }
       {
-        match: '\\b(clock_test_keyword_operator)\\b'
+        match: '^\\b(color_test_keyword_operator)\\b'
         name: 'keyword.operator'
       }
       {
-        match: '\\b(clock_test_keyword_other)\\b'
+        match: '^\\b(color_test_keyword_other)\\b'
         name: 'keyword.other'
       }
       {
-        match: '\\b(clock_test_markup_underline)\\b'
+        match: '^\\b(color_test_markup_underline)\\b'
         name: 'markup.underline'
       }
       {
-        match: '\\b(clock_test_markup_underline_link)\\b'
+        match: '^\\b(color_test_markup_underline_link)\\b'
         name: 'markup.underline.link'
       }
       {
-        match: '\\b(clock_test_markup_bold)\\b'
+        match: '^\\b(color_test_markup_bold)\\b'
         name: 'markup.bold'
       }
       {
-        match: '\\b(clock_test_markup_heading)\\b'
+        match: '^\\b(color_test_markup_heading)\\b'
         name: 'markup.heading'
       }
       {
-        match: '\\b(clock_test_markup_italic)\\b'
+        match: '^\\b(color_test_markup_italic)\\b'
         name: 'markup.italic'
       }
       {
-        match: '\\b(clock_test_markup_list)\\b'
+        match: '^\\b(color_test_markup_list)\\b'
         name: 'markup.list'
       }
       {
-        match: '\\b(clock_test_markup_quote)\\b'
+        match: '^\\b(color_test_markup_quote)\\b'
         name: 'markup.quote'
       }
       {
-        match: '\\b(clock_test_markup_raw)\\b'
+        match: '^\\b(color_test_markup_raw)\\b'
         name: 'markup.raw'
       }
       {
-        match: '\\b(clock_test_markup_other)\\b'
+        match: '^\\b(color_test_markup_other)\\b'
         name: 'markup.other'
       }
       {
-        match: '\\b(clock_test_storage_type)\\b'
+        match: '^\\b(color_test_storage_type)\\b'
         name: 'storage.type'
       }
       {
-        match: '\\b(clock_test_storage_modifier)\\b'
+        match: '^\\b(color_test_storage_modifier)\\b'
         name: 'storage.modifier'
       }
       {
-        match: '\\b(clock_test_support_function)\\b'
+        match: '^\\b(color_test_support_function)\\b'
         name: 'support.function'
       }
       {
-        match: '\\b(clock_test_support_class)\\b'
+        match: '^\\b(color_test_support_class)\\b'
         name: 'support.class'
       }
       {
-        match: '\\b(clock_test_support_type)\\b'
+        match: '^\\b(color_test_support_type)\\b'
         name: 'support.type'
       }
       {
-        match: '\\b(clock_test_support_constant)\\b'
+        match: '^\\b(color_test_support_constant)\\b'
         name: 'support.constant'
       }
       {
-        match: '\\b(clock_test_support_variable)\\b'
+        match: '^\\b(color_test_support_variable)\\b'
         name: 'support.variable'
       }
       {
-        match: '\\b(clock_test_support_other)\\b'
+        match: '^\\b(color_test_support_other)\\b'
         name: 'support.other'
       }
       {
-        match: '\\b(clock_test_variable_parameter)\\b'
+        match: '^\\b(color_test_variable_parameter)\\b'
         name: 'variable.parameter'
       }
       {
-        match: '\\b(clock_test_variable_language)\\b'
+        match: '^\\b(color_test_variable_language)\\b'
         name: 'variable.language'
       }
       {
-        match: '\\b(clock_test_variable_other)\\b'
+        match: '^\\b(color_test_variable_other)\\b'
         name: 'variable.other'
       }
     ]
