@@ -50,18 +50,34 @@ repository:
           '0':
             name: 'punctuation.definition.comment.end.systemverilog'
         name: 'comment.block.systemverilog'
+        patterns: [
+            {
+              match: '(?<=/\\*)\\s*(synopsys|ambid|synthesis)\\b'
+              name: 'keyword.other.directive.tool.systemverilog'
+            }
+            {
+              match: '/\\*'
+              name: 'invalid.illegal.nested-block.comment.systemverilog'
+            }
+        ]
       }
       {
         match: '\\*/'
         name: 'invalid.illegal.stray-end.comment.systemverilog'
       }
       {
-        match: '(//)(.*)$'
-        captures:
-          '1':
+        begin: '//'
+        beginCaptures:
+          '0':
             name: 'punctuation.definition.comment.systemverilog'
-          '2':
-            name: 'comment.line.double-slash.systemverilog'
+        end: '$'
+        name: 'comment.line.double-slash.systemverilog'
+        patterns: [
+          {
+            match: '(?<=//)\\s*(synopsys|ambid|synthesis)\\b'
+            name: 'keyword.other.directive.tool.systemverilog'
+          }
+        ]
       }
     ]
   strings:
@@ -290,14 +306,6 @@ repository:
             name: 'storage.type.module.end.systemverilog'
         name: 'meta.block.module.systemverilog'
         patterns: [
-          # {
-          #   match: '(?<=module)\\s+(?:(automatic|static)\\s+)?((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))?'
-          #   captures:
-          #     '1':
-          #       name: 'storage.modifier.lifetime.systemverilog'
-          #     '2':
-          #       name: 'entity.name.type.module.systemverilog'
-          # }
           {
             include: '#comments'
           }
@@ -331,11 +339,14 @@ repository:
           {
             include: '#keywords'
           }
+          {
+            include: '#operators'
+          }
           # TODO: module
         ]
       }
       {
-        match: '(?<=endmodule)(?:\\s*(:)\\s*((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*)))?\\s*(.*?)(?=\\s*(//|/\\*|$))'
+        match: '(?<=endmodule)\\b(?:\\s*(:)\\s*((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*)))?\\s*(.*?)(?=\\s*(//|/\\*|$))'
         captures:
           '1':
             name: 'punctuation.definition.block-identifier.systemverilog'
@@ -518,10 +529,16 @@ repository:
             include: '#comments'
           }
           {
+            include: '#strings'
+          }
+          {
             include: '#numbers'
           }
           {
             include: '#keywords'
+          }
+          {
+            include: '#operators'
           }
           # TODO: function
         ]
@@ -833,12 +850,41 @@ repository:
   keywords:
     patterns: [
       {
+        match: '\\b(begin)\\s*(:)\\s*((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))\\s*(.*?)(?=\\s*(//|/\\*|$))'
+        # match: '\\b(begin)\\b(?:\\s*(:)\\s*((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))\\s*(.*?)(?=\\s*(//|/\\*|$)))?'
+        captures:
+          '1':
+            name: 'keyword.other.begin.systemverilog'
+          '2':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '3':
+            name: 'entity.name.section.block-identifier.systemverilog'
+          '4':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+      {
+        match: '\\b(end)\\s*(:)\\s*((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))\\s*(.*?)(?=\\s*(//|/\\*|$))'
+        captures:
+          '1':
+            name: 'keyword.other.end.systemverilog'
+          '2':
+            name: 'punctuation.definition.block-identifier.systemverilog'
+          '3':
+            name: 'entity.name.section.block-identifier.systemverilog'
+          '4':
+            name: 'invalid.illegal.tail.systemverilog'
+      }
+      {
+        match: '\\b(begin|end)\\b'
+        name: 'keyword.other.begin-end.systemverilog'
+      }
+      {
         match: '\\b(byte|shortint|int|longint|integer|time|bit|logic|reg|shortreal|real|realtime|supply0|supply1|tri|triand|trior|trireg|tri0|tri1|uwire|wire|wand|wor)\\b'
-        name: 'storage.type.variable.systemverilog'
+        name: 'storage.type.variables.systemverilog'
       }
       {
         match: '\\b(struct|union|string|chandle|event|enum|void)\\b'
-        name: 'storage.type.variable.systemverilog'
+        name: 'storage.type.variables.systemverilog'
       }
       {
         match: '\\b(if|else|initial|final|for|repeat|do|while|foreach|always|always_ff|always_latch|always_comb)\\b'
@@ -1014,10 +1060,14 @@ repository:
             name: 'constant.numeric.time.timeprecision.systemverilog'
       }
       {
-        match: '^\\s*(?:\\S.*)(`resetall|`endif|`ifdef|`ifndef|`line|`nounconnected_drive|`pragma|`unconnected_drive|`undef|`undefineall|`include|`timescale|`default_nettype|`define|`else|`elsif|`end_keywords|`endcelldefine|`begin_keywords|`celldefine)\\b'
+        match: '^\\s*(?:\\S.*)(`define|`resetall|`endif|`ifdef|`ifndef|`line|`nounconnected_drive|`pragma|`unconnected_drive|`undef|`undefineall|`include|`timescale|`default_nettype|`else|`elsif|`end_keywords|`endcelldefine|`begin_keywords|`celldefine)\\b'
         captures:
           '1':
             name: 'invalid.deprecated.directive.in-line.systemverilog'
+      }
+      {
+        match: '(?<=`default_decay_time)\\s+(infinite)?'
+        name: 'constant.numeric.infinite.default_decay_time.systemverilog'
       }
       {
         begin: '(?<=`pragma)\\s+'
@@ -1035,16 +1085,29 @@ repository:
           }
         ]
       }
+      {
+        match: '(?<=`define)\\s+((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))'
+        name: 'support.function.identifier.defined-macro.systemverilog'
+      }
+      {
+        match: '`((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))'
+        name: 'support.function.identifier.defined-macro.systemverilog'
+        # TODO: macro color
+      }
     ]
   operators:
     patterns: [
       {
         match: '\\+(\\+|=)?|-(>|-|=)?|!=\\?|!={,2}|~(&|\\||\\^)?'
-        name: 'keyword.operator.systemverilog'
+        name: 'keyword.operator.arithmetics.systemverilog'
       }
       {
         match: '&(&|=)?|\\|(\\||=)?|\\^(~|=)?|\\*(\\*|=)?|/=?|%=?|=(=(=|\\?)?)?|(<|>){1,3}=?|<->'
-        name: 'keyword.operator.systemverilog'
+        name: 'keyword.operator.arithmetics.systemverilog'
+      }
+      {
+        match: '\\(|\\)|\\[|\\]|\\{|\\}'
+        name: 'keyword.operator.brackets.systemverilog'
       }
     ]
   color_test:
