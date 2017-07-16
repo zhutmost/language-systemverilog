@@ -879,6 +879,10 @@ repository:
         name: 'keyword.other.begin-end.systemverilog'
       }
       {
+          match: '\\b(generate|endgenerate)\\b'
+          name: 'keyword.other.block.generate.systemverilog'
+      }
+      {
         match: '\\b(byte|shortint|int|longint|integer|time|bit|logic|reg|shortreal|real|realtime|supply0|supply1|tri|triand|trior|trireg|tri0|tri1|uwire|wire|wand|wor)\\b'
         name: 'storage.type.variables.systemverilog'
       }
@@ -1113,147 +1117,147 @@ repository:
   color_test:
     patterns: [
       {
-        match: '^\\b(color_test_constant_numeric)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_constant_numeric)\\b'
         name: 'constant.numeric'
       }
       {
-        match: '^\\b(color_test_constant_language)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_constant_language)\\b'
         name: 'constant.language'
       }
       {
-        match: '^\\b(color_test_constant_character)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_constant_character)\\b'
         name: 'constant.character'
       }
       {
-        match: '^\\b(color_test_constant_character_escape)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_constant_character_escape)\\b'
         name: 'constant.character.escape'
       }
       {
-        match: '^\\b(color_test_constant_other)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_constant_other)\\b'
         name: 'constant.other'
       }
       {
-        match: '^\\b(color_test_entity_name_function)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_name_function)\\b'
         name: 'entity.name.function'
       }
       {
-        match: '^\\b(color_test_entity_name_type)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_name_type)\\b'
         name: 'entity.name.type'
       }
       {
-        match: '^\\b(color_test_entity_name_tag)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_name_tag)\\b'
         name: 'entity.name.tag'
       }
       {
-        match: '^\\b(color_test_entity_name_section)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_name_section)\\b'
         name: 'entity.name.section'
       }
       {
-        match: '^\\b(color_test_entity_other_inherited-class)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_other_inherited-class)\\b'
         name: 'entity.other.inherited-class'
       }
       {
-        match: '^\\b(color_test_entity_other_attribute-name)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_entity_other_attribute-name)\\b'
         name: 'entity.other.attribute-name'
       }
       {
-        match: '^\\b(color_test_invalid_illegal)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_invalid_illegal)\\b'
         name: 'invalid.illegal'
       }
       {
-        match: '^\\b(color_test_invalid_deprecated)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_invalid_deprecated)\\b'
         name: 'invalid.deprecated'
       }
       {
-        match: '^\\b(color_test_keyword_control)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_keyword_control)\\b'
         name: 'keyword.control'
       }
       {
-        match: '^\\b(color_test_keyword_operator)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_keyword_operator)\\b'
         name: 'keyword.operator'
       }
       {
-        match: '^\\b(color_test_keyword_other)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_keyword_other)\\b'
         name: 'keyword.other'
       }
       {
-        match: '^\\b(color_test_markup_underline)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_underline)\\b'
         name: 'markup.underline'
       }
       {
-        match: '^\\b(color_test_markup_underline_link)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_underline_link)\\b'
         name: 'markup.underline.link'
       }
       {
-        match: '^\\b(color_test_markup_bold)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_bold)\\b'
         name: 'markup.bold'
       }
       {
-        match: '^\\b(color_test_markup_heading)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_heading)\\b'
         name: 'markup.heading'
       }
       {
-        match: '^\\b(color_test_markup_italic)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_italic)\\b'
         name: 'markup.italic'
       }
       {
-        match: '^\\b(color_test_markup_list)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_list)\\b'
         name: 'markup.list'
       }
       {
-        match: '^\\b(color_test_markup_quote)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_quote)\\b'
         name: 'markup.quote'
       }
       {
-        match: '^\\b(color_test_markup_raw)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_raw)\\b'
         name: 'markup.raw'
       }
       {
-        match: '^\\b(color_test_markup_other)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_markup_other)\\b'
         name: 'markup.other'
       }
       {
-        match: '^\\b(color_test_storage_type)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_storage_type)\\b'
         name: 'storage.type'
       }
       {
-        match: '^\\b(color_test_storage_modifier)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_storage_modifier)\\b'
         name: 'storage.modifier'
       }
       {
-        match: '^\\b(color_test_support_function)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_function)\\b'
         name: 'support.function'
       }
       {
-        match: '^\\b(color_test_support_class)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_class)\\b'
         name: 'support.class'
       }
       {
-        match: '^\\b(color_test_support_type)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_type)\\b'
         name: 'support.type'
       }
       {
-        match: '^\\b(color_test_support_constant)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_constant)\\b'
         name: 'support.constant'
       }
       {
-        match: '^\\b(color_test_support_variable)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_variable)\\b'
         name: 'support.variable'
       }
       {
-        match: '^\\b(color_test_support_other)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_support_other)\\b'
         name: 'support.other'
       }
       {
-        match: '^\\b(color_test_variable_parameter)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_variable_parameter)\\b'
         name: 'variable.parameter'
       }
       {
-        match: '^\\b(color_test_variable_language)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_variable_language)\\b'
         name: 'variable.language'
       }
       {
-        match: '^\\b(color_test_variable_other)\\b'
+        match: '^\\$\\.\\$\\.\\$\\.\\$(color_test_variable_other)\\b'
         name: 'variable.other'
       }
     ]
