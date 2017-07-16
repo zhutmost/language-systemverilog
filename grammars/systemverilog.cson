@@ -322,6 +322,9 @@ repository:
             include: '#compiler_directives'
           }
           {
+            include: '#system_fuctions_tasks'
+          }
+          {
             include: '#module_blocks'
           }
           {
@@ -1097,6 +1100,93 @@ repository:
         match: '`((?:[a-zA-Z_][a-zA-Z0-9_$]*)|(?:\\\\\\S*))'
         name: 'support.function.identifier.defined-macro.systemverilog'
         # TODO: macro color
+      }
+    ]
+  system_fuctions_tasks:
+    patterns: [
+      {
+        match: '\\$(countdrivers|getpattern|incsave|input|key|list|log|nokey|nolog|reset|reset_count|reset_value|restart|save|scale|scope|showscopes|showvars|sreadmemb|sreadmemh)\\b'
+        name: 'support.function.system-fuctions-tasks.optional.systemverilog'
+      }
+      {
+        match: '\\$(finish|stop|exit|realtime|stime|time)\\b'
+        name: 'support.function.system-fuctions-tasks.simulation.systemverilog'
+      }
+      {
+        match: '\\$(printtimescale|timeformat)\\b'
+        name: 'support.function.system-fuctions-tasks.timescale.systemverilog'
+      }
+      {
+        match: '\\$(bitstoreal|realtobits|bitstoshortreal|shortrealtobits|itor|rtoi|signed|unsigned|cast)\\b'
+        name: 'support.function.system-fuctions-tasks.conversion.systemverilog'
+      }
+      {
+        match: '\\$(bits|typename|isunbounded)\\b'
+        name: 'support.function.system-fuctions-tasks.data-query.systemverilog'
+      }
+      {
+        match: '\\$(unpacked_dimensions|dimensions|left|right|low|high|size|increment)\\b'
+        name: 'support.function.system-fuctions-tasks.array-query.systemverilog'
+      }
+      {
+        match: '\\$(clog2|ln|log10|exp|sqrt|pow|floor|ceil|sin|cos|tan|asin|acos|atan|atan2|hypot|sinh|cosh|tanh|asinh|acosh|atanh)\\b'
+        name: 'support.function.system-fuctions-tasks.math.systemverilog'
+      }
+      {
+        match: '\\$(countbits|countones|onehot|onehot0|isunknown)\\b'
+        name: 'support.function.system-fuctions-tasks.bit-vector.systemverilog'
+      }
+      {
+        match: '\\$(fatal|warning|error|info)\\b'
+        name: 'support.function.system-fuctions-tasks.severity.systemverilog'
+      }
+      {
+        match: '\\$assert(on|kill|passon|failon|nonvacuouson|off|control|passoff|failoff|vacuousoff)\\b'
+        name: 'support.function.system-fuctions-tasks.assertion.systemverilog'
+      }
+      {
+        match: '\\$(sampled|rose|fell|changed|past_gclk|fell_gclk|changed_gclk|rising_gclk|steady_gclk|stable|past|rose_gclk|future_gclk|stable_gclk|falling_gclk|changing_gclk)\\b'
+        name: 'support.function.system-fuctions-tasks.sampled-value.systemverilog'
+      }
+      {
+        match: '\\$(coverage_(control|get_max|merge|get|save)|get_coverage|set_coverage_db_name|load_coverage_name)\\b'
+        name: 'support.function.system-fuctions-tasks.coverage.systemverilog'
+      }
+      {
+        match: '\\$(random|dist_(erlang|normal|t|chi_square|exponential|poisson|uniform))\\b'
+        name: 'support.function.system-fuctions-tasks.probabilistic-distribution.systemverilog'
+      }
+      {
+        match: '\\$q_(initialize|remove|exam|add|full)\\b'
+        name: 'support.function.system-fuctions-tasks.stochastic-analysis.systemverilog'
+      }
+      {
+        match: '\\$(async|sync)\\$(and|nand|or|nor)\\$(plane|array)\\b'
+        name: 'support.function.system-fuctions-tasks.PLA-modeling.systemverilog'
+      }
+      {
+        match: '\\$system\\b'
+        name: 'support.function.system-fuctions-tasks.miscellaneous.systemverilog'
+      }
+      {
+        match: '\\$((display|strobe|write|monitor)(b|h|o)?|monitor(off|on))\\b'
+        name: 'support.function.system-fuctions-tasks.display.systemverilog'
+      }
+      {
+        match: '\\$(fclose|fopen|f(display|strobe|write|monitor)(b|h|o)?|swrite(b|h|o)?|fscanf|fread|fseek|fflush|feof|ferror|ftell|rewind|sscanf|fgets|ungetc|fgetc|sformat|sformatf)\\b'
+        name: 'support.function.system-fuctions-tasks.file-io.systemverilog'
+      }
+      {
+        match: '\\$(read|write)mem(b|h)\\b'
+        name: 'support.function.system-fuctions-tasks.memory.systemverilog'
+      }
+      {
+        match: '\\$(test|value)\\$plusargs\\b'
+        name: 'support.function.system-fuctions-tasks.command-line-input.systemverilog'
+      }
+      {
+        match: '\\$dump(file|off|all|flush|ports(off|all|flush|on|limit)?|limit|vars|on)\\b'
+        name: 'support.function.system-fuctions-tasks.VCD.systemverilog'
       }
     ]
   operators:
