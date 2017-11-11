@@ -886,6 +886,10 @@ repository:
           name: 'keyword.other.block.generate.systemverilog'
       }
       {
+          match: '\\b(case|endcase)\\b'
+          name: 'keyword.other.block.generate.systemverilog'
+      }
+      {
         match: '\\b(byte|shortint|int|longint|integer|time|bit|logic|reg|shortreal|real|realtime|supply0|supply1|tri|triand|trior|trireg|tri0|tri1|uwire|wire|wand|wor)\\b'
         name: 'storage.type.variables.systemverilog'
       }

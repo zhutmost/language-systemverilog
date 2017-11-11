@@ -1,0 +1,93 @@
+'.source.systemverilog':
+  'always comb':
+    'prefix': 'always_comb'
+    'body': """
+      always_comb begin
+      \t$0
+      end
+    """
+  'always clock posedge reset':
+    'prefix': 'always_ff_pos_reset'
+    'body': """
+      always_ff @ (posedge ${1:clk} or posedge ${2:rst}) begin
+      \tif ($2) begin
+      \t\t$0
+      \tend
+      \telse begin
+      \t
+      \tend
+      end
+    """
+  'always clock negedge reset':
+    'prefix': 'always_ff_neg_reset'
+    'body': """
+      always_ff @ (posedge ${1:clk} or negedge ${2:rst}) begin
+      \tif ($2) begin
+      \t\t$0
+      \tend
+      \telse begin
+      \t
+      \tend
+      end
+    """
+  'always latch':
+    'prefix': 'always_latch'
+    'body': """
+      always_latch begin
+      \t$0
+      end
+    """
+  'case':
+    'prefix': 'case'
+    'body': """
+      case (${1:/*condition*/})
+      \t$0
+      \tdefault: ;
+      endcase
+    """
+  'if begin end':
+    'prefix': 'if_begin'
+    'body': """
+      if (${1:/*condition*/}) begin
+      \t$0
+      end
+    """
+  'include':
+    'prefix': 'include'
+    'body': """
+      `include "${1:file_path}"
+      $0
+    """
+  'initial':
+    'prefix': 'initial'
+    'body': """
+      initial begin
+      \t$0
+      end
+    """
+  'module':
+    'prefix': 'module'
+    'body': """
+      module ${1:module_name} (
+      \t$0
+      \t);
+      \t
+      endmodule: $1
+    """
+  'package':
+    'prefix': 'package'
+    'body': """
+      package ${1:package_name};
+      \t$0
+      endmodule: $1
+    """
+  'readmemh':
+    'prefix': 'readmemh'
+    'body': """
+      $readmemh("${1:file_path}", ${2:memory_identifier});$0
+    """
+  'readmemb':
+    'prefix': 'readmemb'
+    'body': """
+      $readmemb("${1:file_path}", ${2:memory_identifier});$0
+    """

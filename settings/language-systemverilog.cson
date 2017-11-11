@@ -1,0 +1,24 @@
+'.source.systemverilog':
+  'editor':
+    'commentStart': '// '
+    'tabLength': 4
+    'increaseIndentPattern': '(?x)
+       .* \\bbegin\\b
+      |^ \\s*(function|case|module|class|task|generate|interface|package|table
+             |program|fork|sequence|property|covergroup|clocking|config|primitive)
+       \\b
+      |^ .* \\( [^\\)"\']* $
+      |^ .* \\{ [^}"\']* $
+    '
+    'decreaseIndentPattern': '(?x)
+      \\s* (end|endfunction|endcase|endmodule|endclass|endtask|endgenerate
+           |endinterface|endprogram|endpackage|join|join_any|join_none|endtable
+           |endsequence|endproperty|endgroup|endclocking|endconfig|endprimitive)
+      \\b
+    '
+    'foldEndPattern': '(?x)
+      \\s*(end|endfunction|endcase|endmodule|endclass|endtask|endgenerate
+          |endinterface|endprogram|endpackage|join|join_any|join_none|endtable
+          |endsequence|endproperty|endgroup|endclocking|endconfig|endprimitive
+          |`endif)
+      \\b'
