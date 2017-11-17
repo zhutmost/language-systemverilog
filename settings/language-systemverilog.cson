@@ -11,14 +11,16 @@
       |^ .* \\{ [^}"\']* $
     '
     'decreaseIndentPattern': '(?x)
-      \\s* (end|endfunction|endcase|endmodule|endclass|endtask|endgenerate
+       ^ \\s*(end|endfunction|endcase|endmodule|endclass|endtask|endgenerate
            |endinterface|endprogram|endpackage|join|join_any|join_none|endtable
            |endsequence|endproperty|endgroup|endclocking|endconfig|endprimitive)
-      \\b
+       \\b
+      |^ \\s* (\\s* /[*] .* [*]/ \\s*)* \\}
+      |^ \\s* (\\s* /[*] .* [*]/ \\s*)* \\)
     '
     'foldEndPattern': '(?x)
       \\s*(end|endfunction|endcase|endmodule|endclass|endtask|endgenerate
           |endinterface|endprogram|endpackage|join|join_any|join_none|endtable
           |endsequence|endproperty|endgroup|endclocking|endconfig|endprimitive
-          |`endif)
-      \\b'
+          |`endif)\\b
+    '

@@ -10,7 +10,7 @@
     'prefix': 'always_ff_pos_reset'
     'body': """
       always_ff @ (posedge ${1:clk} or posedge ${2:rst}) begin
-      \tif ($2) begin
+      \tif (${2:rst}) begin
       \t\t$0
       \tend
       \telse begin
@@ -22,7 +22,7 @@
     'prefix': 'always_ff_neg_reset'
     'body': """
       always_ff @ (posedge ${1:clk} or negedge ${2:rst}) begin
-      \tif ($2) begin
+      \tif (${2:rst}) begin
       \t\t$0
       \tend
       \telse begin
@@ -34,6 +34,13 @@
     'prefix': 'always_latch'
     'body': """
       always_latch begin
+      \t$0
+      end
+    """
+  'begin-end block':
+    'prefix': 'begin_end'
+    'body': """
+      begin
       \t$0
       end
     """
@@ -80,7 +87,7 @@
     'body': """
       module ${1:module_name} (
       \t$0
-      \t);
+      );
       \t
       endmodule: $1
     """
