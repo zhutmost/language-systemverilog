@@ -52,6 +52,15 @@
       \tdefault: ;
       endcase
     """
+  'generate_for':
+    'prefix': 'generate_for'
+    'body': """
+      generate
+      \tfor (genvar i = 0; i < ${1:/*genvar_max*/}; i = i + 1) begin: ${2:block_name}
+      \t\t$0
+      \tend
+      endgenerate
+    """
   'if block':
     'prefix': 'if_begin'
     'body': """

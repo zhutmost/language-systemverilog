@@ -886,7 +886,7 @@ repository:
           name: 'keyword.other.block.generate.systemverilog'
       }
       {
-          match: '\\b(case|endcase)\\b'
+          match: '\\b(case|endcase|casex|casez)\\b'
           name: 'keyword.other.block.generate.systemverilog'
       }
       {
