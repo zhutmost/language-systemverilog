@@ -98,14 +98,14 @@
       \t$0
       );
       \t
-      endmodule: $1
+      endmodule: ${1:module_name}
     """
   'package':
     'prefix': 'package'
     'body': """
       package ${1:package_name};
       \t$0
-      endmodule: $1
+      endpackage: ${1:package_name}
     """
   'readmemh':
     'prefix': 'readmemh'
